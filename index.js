@@ -24,10 +24,9 @@ function setData(event) {
         }
         direction == 'right' ? direction = 'left' : direction = 'right'
     }
-    // document.getElementById('container').innerHTML = '<table>' + createPlayer(playerCount) + '</table>';
-    createPlayer(playerCount);
+    document.getElementById('container').innerHTML = '<table>' + createPlayer(playerCount) + '</table>';
     winnerIdentifier();
-    console.log(coordinate);
+    // console.log(coordinate);
 }
 
 function diceRoll() {
@@ -51,7 +50,7 @@ function gameHistory() {
         lastDiceRoll = val;
         diceRollHistory.push(val);
         positionHistory.length === 0 ? positionHistory.push(val) : positionHistory.push(positionHistory[positionHistory.length - 1] + val);
-        if (positionHistory[positionHistory.length - 1] <= gridCells) {
+        if(positionHistory[positionHistory.length - 1] <= gridCells) {
             index = indexLocator(positionHistory[positionHistory.length - 1]);
             coordinateHistory.push(index);
         }
@@ -66,41 +65,39 @@ function indexLocator(index) {
     for (let i = 0; i < gridSize; i++) {
         let ind = coordinate[i].indexOf(index);
         if (ind != -1) {
-            return ([`(${i}, ${ind})`]);
+            // return ([`(${i}, ${ind})`]);
+            return ([`(${ind}, ${i})`]);
         }
     }
 }
 
 function createPlayer(player) {
-    let headers = document.createElement("tr");
-    // table.setAttribute("id", "table");
-    headers.innerHTML = `
-            <th>Player</th>
-            <th>Score</th>
-            <th>Last Dice Roll</th>
-            <th>Dice Roll History</th>
-            <th>Position History</th>
-            <th>Coordinate History</th>
-            <th>Win Status</th>`;
-    document.getElementById("table").appendChild(headers);
-
+    let players = `
+    <tr>
+        <th>Player</th>
+        <th>Score</th>
+        <th>Last Dice Roll</th>
+        <th>Dice Roll History</th>
+        <th>Position History</th>
+        <th>Coordinate History</th>
+        <th>Win Status</th>
+    </tr>`;
     for (let i = 0; i < player; i++) {
-        let row = document.createElement("tr");
         gameHistory1 = gameHistory();
-        row.innerHTML = `
+        players += `<tr>
         <td>${i + 1}</td>
         <td>${gameHistory1[i][0]}</td>
         <td>${gameHistory1[i][1]}</td>
         <td>${gameHistory1[i][2]}</td>
         <td>${gameHistory1[i][3]}</td>
         <td>${gameHistory1[i][5]}</td>
-        <td><span id='player${i + 1}result'></span></td>`;
-        document.getElementById("table").appendChild(row);
+        <td><span id='player${i + 1}result'></span></td>
+        </tr>`
     }
+    return players;
 }
 
 function winnerIdentifier() {
-    // allPlayerDiceRollCount.pop();
     let winner = allPlayerDiceRollCount.indexOf(Math.min(...allPlayerDiceRollCount)) + 1;
     document.getElementById('player' + winner + 'result').innerHTML = 'Winner';
 }
