@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Board Game</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="index.js" defer></script>
+</head>
+
+<body>
+    <h1>Board Game</h1>
+    <form id="form" onsubmit="setData(event)">
+        <div class="row">
+            <label for="playerCount">Number of Players</label>
+            <input type="number" min="2" max="10" value="3" name="playerCount" id="playerCount">
+        </div>
+        <div class="row">
+            <label for="gridSize">Grid Size</label>
+            <input type="number" min="2" max="6" value="4" name="gridSize" id="gridSize">
+        </div>
+        <div class="row">
+            <button type="submit">Start</button>
+        </div>
+    </form>
+    <div class="container" id='container'>
+        <table id="table"></table>
+    </div>
+</body>
+
+</html>
